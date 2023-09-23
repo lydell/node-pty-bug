@@ -1,5 +1,6 @@
 const pty = require("node-pty");
 
+// Run `child.js` 5 times, passing the exit code we want from it and after how long time in milliseconds.
 const configurations = [
   { exitCode: 0, runTime: 700 },
   { exitCode: 0, runTime: 700 },
@@ -38,29 +39,29 @@ function run(i, configuration) {
       console.log("Exit", i, { exitCode, signal });
       console.log(buffer);
       receivedExitCodes.push(exitCode);
+
       const next = queue.shift();
-      if (next === undefined) {
-        if (receivedExitCodes.length === configurations.length) {
-          console.log("receivedExitCodes", receivedExitCodes);
-          const isExpected =
-            receivedExitCodes.filter((code) => code === 1).length === 1;
-          if (isExpected) {
-            console.log("✅ Expected output");
-            process.exit(0);
-          } else {
-            console.log(
-              "🚨 Unexpected output. Expected one single exit code 1."
-            );
-            process.exit(1);
-          }
-        }
-      } else {
+      if (next !== undefined) {
+        // Start the next in the queue, if there are any left.
         next();
+      } else if (receivedExitCodes.length === configurations.length) {
+        // When done, see if we got the expected output.
+        console.log("receivedExitCodes", receivedExitCodes);
+        const isExpected =
+          receivedExitCodes.filter((code) => code === 1).length === 1;
+        if (isExpected) {
+          console.log("✅ Expected output");
+          process.exit(0);
+        } else {
+          console.log("🚨 Unexpected output. Expected one single exit code 1.");
+          process.exit(1);
+        }
       }
     });
   };
 }
 
+// Start running, 2 at a time.
 for (let i = 0; i < 2; i++) {
   queue.shift()?.();
 }
