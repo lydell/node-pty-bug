@@ -1,6 +1,6 @@
 const pty = require("node-pty");
 
-// Run `child.js` 5 times, passing the exit code we want from it and after how long time in milliseconds.
+// Run `child.bash` 5 times, passing the exit code we want from it and after how long time in milliseconds.
 const configurations = [
   { exitCode: 0, runTime: 700 },
   { exitCode: 0, runTime: 700 },
@@ -22,11 +22,11 @@ function run(i, configuration) {
     let buffer = "";
 
     const terminal = pty.spawn(
-      "node",
+      "bash",
       [
-        "child.js",
+        "child.bash",
         configuration.exitCode.toString(),
-        configuration.runTime.toString(),
+        (configuration.runTime / 1000).toString(),
       ],
       {}
     );
