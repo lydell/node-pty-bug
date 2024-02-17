@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const childProcess = require("child_process");
 
-childProcess.spawn("node", ["test.js"], {
+childProcess.spawn(process.execPath, [`${__dirname}/test.js`], {
   stdio: "inherit",
-  env: { ...process.env, UV_USE_IO_URING: "0" },
+  env: { UV_USE_IO_URING: "0", ...process.env },
 }).on('exit', process.exit);

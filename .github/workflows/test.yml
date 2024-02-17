@@ -20,4 +20,4 @@ jobs:
 
       - run: npm ci
 
-      - run: node run.js
+      - run: ./run.js
