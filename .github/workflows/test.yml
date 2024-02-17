@@ -21,5 +21,3 @@ jobs:
       - run: npm ci
 
       - run: node test.js
-        env:
-          # UV_USE_IO_URING: 0
