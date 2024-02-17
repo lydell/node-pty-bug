@@ -1,4 +1,4 @@
-#!/usr/bin/env UV_USE_IO_URING=0 node
+#!/usr/bin/env node
 const pty = require("node-pty");
 
 // Run `child.js` 5 times, passing the exit code we want from it and after how long time in milliseconds.
