@@ -20,6 +20,4 @@ jobs:
 
       - run: npm ci
 
-      - run: ./test.js
-        env:
-          UV_USE_IO_URING: 0
+      - run: node run.js
