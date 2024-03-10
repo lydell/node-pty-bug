@@ -21,3 +21,7 @@ jobs:
       - run: npm ci
 
       - run: node test.js
+        # Node.js 20.11.1 disabled `io_uring` by default due to a security issue:
+        # https://github.com/nodejs/node/blob/1f193165b990190074faab34f503683148816d39/doc/changelogs/CHANGELOG_V20.md#20.11.1
+        env:
+          UV_USE_IO_URING: "1"
