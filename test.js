@@ -32,4 +32,6 @@ terminal2.onExit(({ exitCode, signal }) => {
   }
 });
 
-terminal1.kill();
+setTimeout(() => {
+  terminal1.kill();
+}, 500);
