@@ -8,7 +8,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest]
+        node:
+          - "20.7.0"
+          - "20.8.0"
+          - "20.9.0"
+          - "20.10.0"
+          - "20.11.0"
+          - "20.11.1"
     runs-on: ${{matrix.os}}
 
     steps:
@@ -16,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: ${{matrix.node}}
 
       - run: npm ci
 
